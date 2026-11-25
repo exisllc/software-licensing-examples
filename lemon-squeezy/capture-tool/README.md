@@ -6,7 +6,7 @@ to make ExisOne's Lemon Squeezy–compatible endpoints answer byte-for-byte like
 
 **Why it's public:** if your app depends on a Lemon Squeezy response detail you're not sure we match
 (an error message, a field, a status code), run this against your own test-mode key and send us the
-file (exisllc@gmail.com, or attach it to a GitHub issue after reviewing it). It also lets you see
+file (info@exisone.com, or attach it to a GitHub issue after reviewing it). It also lets you see
 exactly what Lemon Squeezy returns for every case before you switch. You don't need it to migrate.
 
 ## What it does to your account

@@ -6,7 +6,7 @@ Please **do not open a public issue** for a security problem.
 
 - Preferred: use **Report a vulnerability** on this repository's **Security** tab (GitHub private
   vulnerability reporting).
-- Or email **exisllc@gmail.com** with "SECURITY" in the subject.
+- Or email **info@exisone.com** with "SECURITY" in the subject.
 
 Include what you found, how to reproduce it, and what an attacker could do with it. We aim to
 acknowledge reports within 3 business days and will keep you posted until it is fixed. We are happy
