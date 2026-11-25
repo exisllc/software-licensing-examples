@@ -1,0 +1,42 @@
+# Local configuration (holds your access token)
+.env
+appsettings.Local.json
+*.local.json
+
+# Saved license state written by the samples while you try them
+license-cache*.json
+
+# .NET
+bin/
+obj/
+*.user
+*.pubxml
+*.pubxml.user
+.vs/
+
+# Node
+node_modules/
+dist/
+out/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Swift / Xcode
+.build/
+.swiftpm/
+DerivedData/
+*.xcuserstate
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Lemon Squeezy capture output (redacted, but review before sharing)
+ls-capture-*.json

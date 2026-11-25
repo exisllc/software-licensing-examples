@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'">
+  <title>Acme Sketch</title>
+  <style>
+    body { font: 14px system-ui, sans-serif; margin: 0; }
+    #bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding: 10px 12px; border-bottom: 1px solid #ddd; }
+    #status.ok { color: #1a7f37; } #status.warn { color: #b35900; } #status.bad { color: #c62828; }
+    #update { color: #2457c5; }
+    #activateForm { display: none; gap: 8px; padding: 10px 12px; background: #f6f6f6; }
+    canvas { display: block; margin: 12px; border: 1px solid #ccc; background: #fff; }
+    canvas.locked { opacity: .35; pointer-events: none; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <div id="bar">
+    <span id="status">Checking license…</span>
+    <button id="activate" hidden>Enter license key…</button>
+    <button id="buy" hidden>Buy</button>
+    <button id="deactivate" hidden>Deactivate this computer</button>
+    <button id="retry" hidden>Retry</button>
+    <span id="update" hidden></span>
+  </div>
+  <form id="activateForm">
+    <input id="key" placeholder="License key" size="28" required>
+    <input id="email" type="email" placeholder="Email used to buy" size="24" required>
+    <button type="submit">Activate</button>
+    <button type="button" id="cancel">Cancel</button>
+  </form>
+  <canvas id="canvas" width="780" height="420" class="locked"></canvas>
+  <script src="renderer.js"></script>
+</body>
+</html>

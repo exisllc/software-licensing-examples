@@ -1,0 +1,17 @@
+name: Sample request
+description: Ask for a sample for an app type or scenario that isn't covered
+labels: [sample-request]
+body:
+  - type: textarea
+    id: app
+    attributes:
+      label: What kind of app, and which language or framework?
+    validations:
+      required: true
+  - type: textarea
+    id: scenario
+    attributes:
+      label: What licensing scenario should it show?
+      placeholder: "e.g. floating licenses across a team, a 14-day trial in a Unity game"
+    validations:
+      required: true

@@ -1,0 +1,16 @@
+{
+  "name": "acme-cli",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ExisOne sample: a license check in a command-line tool",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "acme-cli": "src/cli.mjs" },
+  "engines": { "node": ">=20.12" },
+  "scripts": {
+    "start": "node src/cli.mjs"
+  },
+  "dependencies": {
+    "exisone-client": "^0.10.0"
+  }
+}

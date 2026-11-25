@@ -1,0 +1,44 @@
+name: Bug in a sample
+description: A sample doesn't build, doesn't run, or behaves wrongly
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Security problem? Please don't file it here; see SECURITY.md.
+        Never paste your access token or a real license key.
+  - type: dropdown
+    id: sample
+    attributes:
+      label: Sample
+      options:
+        - desktop-dotnet
+        - desktop-electron
+        - macos-swift
+        - python-app
+        - cli-tool
+        - server-side
+        - offline-activation
+        - hardware-locked
+        - subscriptions
+        - feature-flags
+        - lemon-squeezy
+        - other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. ...\n2. ..."
+  - type: input
+    id: env
+    attributes:
+      label: OS, runtime and SDK version
+      placeholder: "Windows 11, .NET 8.0.11, ExisOne.Client 0.10.1"

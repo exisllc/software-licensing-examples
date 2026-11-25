@@ -1,0 +1,19 @@
+{
+  "name": "acme-sketch",
+  "productName": "Acme Sketch",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ExisOne sample: licensing in an Electron app (SDK in the main process)",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/main.mjs",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "exisone-client": "^0.10.0"
+  },
+  "devDependencies": {
+    "electron": "^33.4.11"
+  }
+}

@@ -1,0 +1,81 @@
+# Builds / type-checks every sample. No secrets: nothing here talks to a license server.
+name: Build samples
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  dotnet-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: 8.0.x }
+      - run: dotnet build samples/desktop-dotnet -c Release
+
+  dotnet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: 8.0.x }
+      - run: dotnet build samples/offline-activation -c Release
+      - run: dotnet build samples/feature-flags -c Release
+      - run: dotnet build lemon-squeezy/capture-tool -c Release
+      - name: Shared licensing files are identical
+        run: for f in LicenseService.cs LicenseCache.cs LicenseSettings.cs; do cmp samples/desktop-dotnet/$f samples/feature-flags/$f; done
+
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Install and syntax-check
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
+        run: |
+          for d in cli-tool server-side subscriptions desktop-electron; do
+            (cd samples/$d && npm install --no-audit --no-fund && for f in $(find src -name '*.mjs' -o -name '*.js' -o -name '*.cjs'); do node --check "$f"; done)
+          done
+      - name: Shared license.mjs copies are identical
+        run: |
+          cmp samples/cli-tool/src/license.mjs samples/desktop-electron/src/license.mjs
+          cmp samples/cli-tool/src/license.mjs samples/subscriptions/src/license.mjs
+      - name: Subscription messages
+        run: cd samples/subscriptions && npm run simulate
+      - name: Type-check the Lemon Squeezy TypeScript snippets
+        run: npx -y -p typescript@5.6.3 tsc --noEmit --strict --target es2022 --module es2022 --lib es2022,dom lemon-squeezy/before-after/js-ts/before.ts lemon-squeezy/before-after/js-ts/after.ts
+
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r samples/python-app/requirements.txt
+      - run: python -m py_compile samples/python-app/*.py samples/hardware-locked/*.py lemon-squeezy/before-after/python/*.py
+      - name: Shared licensing.py copies are identical
+        run: cmp samples/python-app/licensing.py samples/hardware-locked/licensing.py
+      - run: cd samples/hardware-locked && python machine.py --help
+
+  swift:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cd samples/macos-swift && swift build
+      - run: swiftc -typecheck lemon-squeezy/before-after/swift/Before.swift && swiftc -typecheck lemon-squeezy/before-after/swift/After.swift
+
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: "1.22" }
+      - run: |
+          for d in before after; do (cd lemon-squeezy/before-after/go/$d && go vet license.go); done
